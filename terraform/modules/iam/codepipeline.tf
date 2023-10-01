@@ -1,18 +1,32 @@
-module "codepipeline_role" {
-  source = "../modules/aws/iam/iam_role"
+resource "aws_iam_role" "codepipeline" {
+  name               = "ServerlessPipelineServiceRole"
+  assume_role_policy = data.aws_iam_policy_document.assume_role.json
+}
 
-  role_name = "CodePipelineServiceRole"
-  role_description = "service role for codepipeline."
+data "aws_iam_policy_document" "assume_role" {
+  statement {
+    actions = ["sts:AssumeRole"]
 
-  trusted_role_services = [
-    "codepipeline.amazonaws.com"
-  ]
+    principals {
+      type        = "Service"
+      identifiers = ["codepipeline.amazonaws.com"]
+    }
+  }
+}
 
-  policy_names = [
-    "CodePipelineBasePolicy",
-  ]
+data "template_file" "codepipeline_policy" {
+  template = file("../../modules/iam/json/codepipeline_policy.json")
+  # vars = {
+  #   pjname = var.pjname
+  # }
+}
 
-  policy_json_files = [
-    "./codepipeline_policy.json"
-  ]
+resource "aws_iam_policy" "codepipeline" {
+  name = "CodePipelineBasePolicy"
+  policy = data.template_file.codepipeline_policy.rendered
+}
+
+resource "aws_iam_role_policy_attachment" "codepipeline_policy_attachment" {
+  role       = aws_iam_role.codepipeline.name
+  policy_arn = aws_iam_policy.codepipeline.arn
 }

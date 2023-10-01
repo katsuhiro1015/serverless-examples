@@ -8,8 +8,8 @@
           "s3:GetObjectVersion"
         ],
         "Resource": [
-          "arn:aws:s3:::tutorial-codebuild-input/MessageUtil.zip",
-          "arn:aws:s3:::tutorial-codebuild-input/MessageUtil.zip/*"
+          "arn:aws:s3:::${pjname}-codepipeline-github-artifact/MessageUtil.zip",
+          "arn:aws:s3:::${pjname}-codepipeline-github-artifact/MessageUtil.zip/*"
         ]
       },
       {
@@ -20,7 +20,7 @@
           "s3:GetBucketLocation"
         ],
         "Resource": [
-          "arn:aws:s3:::tutorial-codebuild-input"
+          "arn:aws:s3:::${pjname}-codepipeline-github-artifact"
         ]
       }
     ]

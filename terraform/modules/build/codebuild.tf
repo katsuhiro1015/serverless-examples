@@ -1,7 +1,7 @@
-resource "aws_codebuild_project" "build_project01" {
-  name = "build-project01"
+resource "aws_codebuild_project" "build_application" {
+  name = "${var.pjname}"
 
-  service_role  = aws_iam_role.codebuild_iam_role.arn
+  service_role  = var.aws_iam_role_build_arn
 
   source {
     type = "S3"
@@ -21,7 +21,7 @@ resource "aws_codebuild_project" "build_project01" {
 
   logs_config {
     cloudwatch_logs {
-      group_name = "/aws/codebuild/build-project01"
+      group_name = "/aws/codebuild/${var.pjname}"
       stream_name = "build-log"
     }
   }

@@ -7,7 +7,7 @@ variable "region" {
 }
 
 variable "github_repository" {
-  defauilt = "katsuhiro1015/example-app"
+  default = "katsuhiro1015/example-app"
 }
 
 variable "branch" {

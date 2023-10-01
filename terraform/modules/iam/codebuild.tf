@@ -1,5 +1,5 @@
-resource "aws_iam_role" "codebuild_iam_role" {
-  name = "CodeBuildServiceRole"
+resource "aws_iam_role" "codebuild" {
+  name = "ServerlessBuildServiceRole"
   assume_role_policy = data.aws_iam_policy_document.codebuild_assume_role_policy.json
 }
 
@@ -17,26 +17,41 @@ data "aws_iam_policy_document" "codebuild_assume_role_policy" {
   }
 }
 
-# IAM Policy
+data "template_file" "codebuild_base_policy" {
+  template = file("../../modules/iam/json/codebuild_policy.json")
+  vars = {
+    pjname = var.pjname
+    region = var.region
+    account = "${data.aws_caller_identity.self.account_id}"
+  }
+}
 
+data "template_file" "codebuild_ro_policy" {
+  template = file("../../modules/iam/json/codebuild_ro_policy.json")
+  vars = {
+    pjname = var.pjname
+  }
+}
+
+# IAM Policy
 resource "aws_iam_policy" "codebuild_base_policy" {
   name = "CodeBuildBasePolicy"
-  policy = file("./codebuild_policy.json")
+  policy = data.template_file.codebuild_base_policy.rendered
 }
 
 resource "aws_iam_policy" "codebuild_ro_policy" {
   name = "CodeBuildReadOnlyPolicy"
-  policy = file("./codebuild_ro_policy.json")
+  policy = data.template_file.codebuild_ro_policy.rendered
 }
 
 # Policy Attachment
 
-resource "aws_iam_role_policy_attachment" "codebuild_policy_attachment01" {
-  role = aws_iam_role.codebuild_iam_role.name
+resource "aws_iam_role_policy_attachment" "codebuild_policy_attachment_base" {
+  role = aws_iam_role.codebuild.name
   policy_arn = aws_iam_policy.codebuild_base_policy.arn
 }
 
-resource "aws_iam_role_policy_attachment" "codebuild_policy_attachment02" {
-  role = aws_iam_role.codebuild_iam_role.name
+resource "aws_iam_role_policy_attachment" "codebuild_policy_attachment_ro" {
+  role = aws_iam_role.codebuild.name
   policy_arn = aws_iam_policy.codebuild_ro_policy.arn
 }

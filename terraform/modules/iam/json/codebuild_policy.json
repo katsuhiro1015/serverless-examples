@@ -15,7 +15,7 @@
       {
         "Effect": "Allow",
         "Resource": [
-          "arn:aws:s3:::codepipeline-ap-northeast-1-*"
+          "arn:aws:s3:::codepipeline-${region}-*"
         ],
         "Action": [
           "s3:PutObject",
@@ -28,8 +28,8 @@
       {
         "Effect": "Allow",
         "Resource": [
-          "arn:aws:s3:::tutorial-codebuild-output",
-          "arn:aws:s3:::tutorial-codebuild-output/*"
+          "arn:aws:s3:::${pjname}-codepipeline-github-artifact",
+          "arn:aws:s3:::${pjname}-codepipeline-github-artifact/*"
         ],
         "Action": [
           "s3:PutObject",
@@ -47,7 +47,7 @@
           "codebuild:BatchPutCodeCoverages"
         ],
         "Resource": [
-          "arn:aws:codebuild:ap-northeast-1:<your aws project id>:report-group/*"
+          "arn:aws:codebuild:${region}:${account}:report-group/*"
         ]
       }
     ]

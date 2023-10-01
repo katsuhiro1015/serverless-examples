@@ -1,0 +1,10 @@
+*/**/.terraform
+*/**/.terraform.lock.hcl
+*/**/terraform
+*/**/terraform.tfstate
+*/**/terraform.tfstate.backup
+*/**/terraform.tfvars
+*/**/terraform.rc
+*/**/.terraformrc
+*/**/terraform.rc.json
+*/**/terraform.rc.yaml
