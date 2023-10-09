@@ -22,8 +22,10 @@ sls -v
 ## create project
 
 ```bash
-sls create --template aws-nodejs-typescript --name example-app --path example-app
+serverless create --template-url https://github.com/serverless/examples/tree/v3/aws-node-typescript --path example-app
 ```
+
+ソースコードはsrc配下に入れておく
 
 ## test
 
@@ -36,3 +38,30 @@ yarn sls deploy
 ```bash
 yarn sls invoke local -f hello --path src/functions/hello/mock.json
 ```
+
+## deploy
+
+### install esbuild
+
+```bash
+npm install -D @types/aws-lambda esbuild
+```
+
+### tsconfig
+
+tsconfig.json,tsconfig.paths.jsonを作成
+
+### serverless.yml
+
+serverless.ymlでイメージ指定
+
+```bash
+functions:
+  hello:
+    image: <your image uri>
+    events:
+    - httpApi:
+        path: /hello
+        method: GET
+```
+

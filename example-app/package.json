@@ -1,7 +1,12 @@
 {
-  "devDependencies": {
-    "esbuild": "^0.14.25",
-    "serverless-esbuild": "^1.25.0"
+  "name": "example-app",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "esbuild src/index.ts --bundle --minify --sourcemap --platform=node --target=es2020 --outfile=dist/index.js"
   },
-  "name": "example-app"
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.124",
+    "esbuild": "^0.14.54",
+    "serverless-esbuild": "^1.48.4"
+  }
 }

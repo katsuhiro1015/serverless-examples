@@ -4,8 +4,8 @@ resource "aws_codebuild_project" "build_application" {
   service_role  = var.aws_iam_role_build_arn
 
   source {
-    type = "S3"
-    location = "tutorial-codebuild-input/MessageUtil.zip"
+    type = "CODEPIPELINE"
+    buildspec = "buildspec.yml"
   }
 
   environment {
@@ -15,8 +15,7 @@ resource "aws_codebuild_project" "build_application" {
   }
 
   artifacts {
-    type = "S3"
-    location = var.artifact_bucket
+    type = "CODEPIPELINE"
   }
 
   logs_config {

@@ -7,7 +7,7 @@ variable "region" {
 }
 
 variable "github_repository" {
-  default = "katsuhiro1015/example-app"
+  default = "katsuhiro1015/serverless-examples"
 }
 
 variable "branch" {

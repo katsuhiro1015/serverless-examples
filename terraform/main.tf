@@ -20,3 +20,8 @@ module "s3" {
   source = "./modules/s3"
   pjname = var.pjname
 }
+
+module "ecr" {
+  source = "./modules/ecr"
+  pjname = var.pjname
+}
