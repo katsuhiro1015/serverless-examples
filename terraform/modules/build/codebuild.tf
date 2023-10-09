@@ -10,13 +10,13 @@ resource "aws_codebuild_project" "build_application" {
 
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
-    image = "aws/codebuild/amazonlinux2-x86_64-standard:3.0"
+    image = "aws/codebuild/standard:7.0"
     type = "LINUX_CONTAINER"
   }
 
   artifacts {
     type = "S3"
-    location = "tutorial-codebuild-output"
+    location = var.artifact_bucket
   }
 
   logs_config {

@@ -11,5 +11,5 @@ variable "github_repository" {
 }
 
 variable "branch" {
-  default = "main"
+  default = "feature/init"
 }

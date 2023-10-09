@@ -1,0 +1,8 @@
+FROM --platform=linux/x86_64 public.ecr.aws/lambda/nodejs:18
+
+WORKDIR /usr/app
+COPY package.json handler.ts ./
+RUN npm install -g yarn && \
+    yarn install
+
+CMD ["handler.hello"]

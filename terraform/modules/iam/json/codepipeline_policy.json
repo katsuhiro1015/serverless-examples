@@ -2,47 +2,6 @@
     "Statement": [
         {
             "Action": [
-                "iam:PassRole"
-            ],
-            "Resource": "*",
-            "Effect": "Allow",
-            "Condition": {
-                "StringEqualsIfExists": {
-                    "iam:PassedToService": [
-                        "cloudformation.amazonaws.com",
-                        "elasticbeanstalk.amazonaws.com",
-                        "ec2.amazonaws.com",
-                        "ecs-tasks.amazonaws.com"
-                    ]
-                }
-            }
-        },
-        {
-            "Action": [
-                "codecommit:CancelUploadArchive",
-                "codecommit:GetBranch",
-                "codecommit:GetCommit",
-                "codecommit:GetRepository",
-                "codecommit:GetUploadArchiveStatus",
-                "codecommit:UploadArchive"
-            ],
-            "Resource": "*",
-            "Effect": "Allow"
-        },
-        {
-            "Action": [
-                "codedeploy:CreateDeployment",
-                "codedeploy:GetApplication",
-                "codedeploy:GetApplicationRevision",
-                "codedeploy:GetDeployment",
-                "codedeploy:GetDeploymentConfig",
-                "codedeploy:RegisterApplicationRevision"
-            ],
-            "Resource": "*",
-            "Effect": "Allow"
-        },
-        {
-            "Action": [
                 "codestar-connections:UseConnection"
             ],
             "Resource": "*",
@@ -50,7 +9,6 @@
         },
         {
             "Action": [
-                "elasticbeanstalk:*",
                 "ec2:*",
                 "elasticloadbalancing:*",
                 "autoscaling:*",
@@ -60,7 +18,8 @@
                 "cloudformation:*",
                 "rds:*",
                 "sqs:*",
-                "ecs:*"
+                "ecr:*",
+                "apigateway:*"
             ],
             "Resource": "*",
             "Effect": "Allow"
@@ -69,20 +28,6 @@
             "Action": [
                 "lambda:InvokeFunction",
                 "lambda:ListFunctions"
-            ],
-            "Resource": "*",
-            "Effect": "Allow"
-        },
-        {
-            "Action": [
-                "opsworks:CreateDeployment",
-                "opsworks:DescribeApps",
-                "opsworks:DescribeCommands",
-                "opsworks:DescribeDeployments",
-                "opsworks:DescribeInstances",
-                "opsworks:DescribeStacks",
-                "opsworks:UpdateApp",
-                "opsworks:UpdateStack"
             ],
             "Resource": "*",
             "Effect": "Allow"
@@ -116,37 +61,7 @@
         {
             "Effect": "Allow",
             "Action": [
-                "devicefarm:ListProjects",
-                "devicefarm:ListDevicePools",
-                "devicefarm:GetRun",
-                "devicefarm:GetUpload",
-                "devicefarm:CreateUpload",
-                "devicefarm:ScheduleRun"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "servicecatalog:ListProvisioningArtifacts",
-                "servicecatalog:CreateProvisioningArtifact",
-                "servicecatalog:DescribeProvisioningArtifact",
-                "servicecatalog:DeleteProvisioningArtifact",
-                "servicecatalog:UpdateProduct"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
                 "cloudformation:ValidateTemplate"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "ecr:DescribeImages"
             ],
             "Resource": "*"
         },

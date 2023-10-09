@@ -23,15 +23,16 @@ data "template_file" "codebuild_base_policy" {
     pjname = var.pjname
     region = var.region
     account = "${data.aws_caller_identity.self.account_id}"
+    artifact_arn = var.artifact_arn
   }
 }
 
-data "template_file" "codebuild_ro_policy" {
-  template = file("../../modules/iam/json/codebuild_ro_policy.json")
-  vars = {
-    pjname = var.pjname
-  }
-}
+# data "template_file" "codebuild_ro_policy" {
+#   template = file("../../modules/iam/json/codebuild_ro_policy.json")
+#   vars = {
+#     pjname = var.pjname
+#   }
+# }
 
 # IAM Policy
 resource "aws_iam_policy" "codebuild_base_policy" {
@@ -39,10 +40,10 @@ resource "aws_iam_policy" "codebuild_base_policy" {
   policy = data.template_file.codebuild_base_policy.rendered
 }
 
-resource "aws_iam_policy" "codebuild_ro_policy" {
-  name = "CodeBuildReadOnlyPolicy"
-  policy = data.template_file.codebuild_ro_policy.rendered
-}
+# resource "aws_iam_policy" "codebuild_ro_policy" {
+#   name = "CodeBuildReadOnlyPolicy"
+#   policy = data.template_file.codebuild_ro_policy.rendered
+# }
 
 # Policy Attachment
 
@@ -51,7 +52,7 @@ resource "aws_iam_role_policy_attachment" "codebuild_policy_attachment_base" {
   policy_arn = aws_iam_policy.codebuild_base_policy.arn
 }
 
-resource "aws_iam_role_policy_attachment" "codebuild_policy_attachment_ro" {
-  role = aws_iam_role.codebuild.name
-  policy_arn = aws_iam_policy.codebuild_ro_policy.arn
-}
+# resource "aws_iam_role_policy_attachment" "codebuild_policy_attachment_ro" {
+#   role = aws_iam_role.codebuild.name
+#   policy_arn = aws_iam_policy.codebuild_ro_policy.arn
+# }

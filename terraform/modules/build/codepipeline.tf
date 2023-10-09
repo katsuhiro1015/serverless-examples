@@ -22,7 +22,6 @@ resource "aws_codepipeline" "pipeline_application" {
     }
   }
 
-  # Build, Deploy ステージの記述は省略
   stage {
     name = "Build"
 
@@ -40,10 +39,9 @@ resource "aws_codepipeline" "pipeline_application" {
       }
     }
   }
-  # terraform apply 実行時には必須
 
   artifact_store {
-    location = var.artifact_id
+    location = var.artifact_bucket
     type     = "S3"
   }
 }
